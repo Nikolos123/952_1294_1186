@@ -2,7 +2,7 @@ from django.db import transaction
 from django.db.models.signals import pre_save, pre_delete
 from django.dispatch import receiver
 from django.forms import inlineformset_factory
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
@@ -11,6 +11,7 @@ from django.views.generic import ListView, CreateView, DetailView, DeleteView, U
 
 from baskets.models import Basket
 from mainapp.mixin import BaseClassContextMixin
+from mainapp.models import Product
 from ordersapp.forms import OrderForm, OrderItemsForm
 from ordersapp.models import Order, OrderItem
 
@@ -118,6 +119,14 @@ def order_forming_complete(request, pk):
     order.save()
     return HttpResponseRedirect(reverse('orders:list'))
 
+def get_product_price(request,pk):
+    if request.is_ajax():
+        product = Product.objects.get(pk=pk)
+        if product:
+            return JsonResponse({'price':product.price})
+        return JsonResponse({'price':0})
+
+
 
 @receiver(pre_save, sender=Basket)
 @receiver(pre_save, sender=OrderItem)
@@ -134,4 +143,4 @@ def product_quantity_update_save(sender, instance, **kwargs):
 @receiver(pre_delete, sender=OrderItem)
 def product_quantity_update_delete(sender, instance, **kwargs):
     instance.product.quantity += instance.quantity
-    instance.save()
+    instance.product.save()
