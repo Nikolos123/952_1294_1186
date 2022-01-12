@@ -5,7 +5,7 @@
    <div class="h4">обновлен: {{ object.updated|date:"Y-m-d H:i:s" }}</div>
    <div class="h4">cтатус: {{ object.get_status_display }}</div>
    <hr>
-    {% with object_summary = object.get_summary %}
+    {% with object_summary=object.get_summary %}
            <div class="h4">
                общее количество товаров: <span class="order_total_quantity">{{ object_summary.get_total_quantity }}</span>
            </div>
