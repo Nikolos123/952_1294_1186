@@ -2,9 +2,9 @@ from django.core.management.base import BaseCommand
 from prettytable import PrettyTable
 
 from ordersapp.models import OrderItem
-from products.models import Product
-from django.db.models import Q
-from django.db.models import F, When, Case, DecimalField, IntegerField
+from mainapp.models import Product
+
+from django.db.models import F, When, Case, DecimalField, IntegerField,Q
 from datetime import timedelta
 
 
@@ -61,7 +61,7 @@ class Command(BaseCommand):
         t_list = PrettyTable(["Заказ", "Товар", "Скидка", 'Раздница времени'])
         t_list.align = 'l'
         for orderitem in test_orderss:
-            t_list.add_row([f'{orderitem.action_order} заказ №{orderitem.pk:}', f'{orderitem.product.name:15}',
+            t_list.add_row([f'{orderitem.action_order} заказ №{orderitem.order.pk:}', f'{orderitem.product.name}',
                             f'{abs(orderitem.total_price):6.2f} руб.',
                             orderitem.order.updated - orderitem.order.created])
         print(t_list)

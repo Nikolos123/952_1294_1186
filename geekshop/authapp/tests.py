@@ -16,7 +16,7 @@ class UserManagementTestCase(TestCase):
         'first_name':'Django1',
         'last_name':'Django2',
         'password1': 'Isponec_2',
-        'password2': 'ISponec_2',
+        'password2': 'Isponec_2',
         'email': 'geekshop@mail.ru',
         'age':31
 
@@ -78,7 +78,7 @@ class UserManagementTestCase(TestCase):
         activation_url = f"{settings.DOMAIN_NAME}/users/verify/{self.new_user_data['email']}/{new_user.activation_key}/"
 
         response = self.client.get(activation_url)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
 
 
         #обновляем пользователя в базе данных

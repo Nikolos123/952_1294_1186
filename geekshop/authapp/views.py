@@ -18,6 +18,11 @@ class LoginListView(LoginView,BaseClassContextMixin):
     form_class = UserLoginForm
     title = 'GeekShop - Авторизация'
 
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return HttpResponseRedirect(reverse('index'))
+        return HttpResponseRedirect(reverse('authapp:login'))
+
 class RegisterListView(FormView,BaseClassContextMixin):
     model = User
     template_name = 'authapp/register.html'

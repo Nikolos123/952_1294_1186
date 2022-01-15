@@ -15,6 +15,7 @@ class TestMainSmokeTest(TestCase):
             price=100
         )
         self.client = Client()
+
     def tearDown(self):
         #определяется для очистки после
         # работы теста исполяется после setUP
