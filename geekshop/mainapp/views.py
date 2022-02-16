@@ -53,11 +53,6 @@ def products(request):
 
     context = {
         'listgroup': ['Новинки', 'Одежда', 'Обувь', 'Аксесуары', 'Подарки']
-        # {'name': 'Новинки'},
-        # {'name': 'Одежда'},
-        # {'name': 'Обувь'},
-        # {'name': 'Аксесуары'},
-        # {'name': 'Подарки'},
     }
     return render(request, 'mainapp/products.html', context)
 
