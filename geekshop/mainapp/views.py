@@ -14,7 +14,7 @@ def products(request):
 
     context = {
         # 'listgroup': ['Новинки', 'Одежда', 'Обувь', 'Аксесуары', 'Подарки'],
-        'title': 'Geekshop - Каталог',
+        'title': 'Geekshop | Каталог',
         'products': Product.objects.all(),
         'categories': ProductCategory.objects.all()
         # 'products': [
