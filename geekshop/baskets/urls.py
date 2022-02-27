@@ -1,12 +1,11 @@
 
 from django.urls import path
-from authapp.views import login, register, logout, profile
 
-app_name = 'authapp'
+from baskets.views import basket_add, basket_remove
+
+app_name = 'baskets'
 
 urlpatterns = [
-    path('login/', login, name='login'),
-    path('register/', register, name='register'),
-    path('profile/', profile, name='profile'),
-    path('logout/', logout, name='logout'),
+    path('add/<int:id>', basket_add, name='basket_add'),
+    path('remove/<int:basket_id>', basket_remove, name='basket_remove'),
 ]
