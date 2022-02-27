@@ -1,9 +1,9 @@
-from django.contrib import auth
+from django.contrib import auth, messages
 from django.contrib.auth import authenticate
 from django.shortcuts import render, HttpResponseRedirect
 from django.urls import reverse
 
-from authapp.forms import UserLoginForms, UserRegisterForms
+from authapp.forms import UserLoginForms, UserRegisterForms, UserProfileForms
 
 
 def login(request):
@@ -16,8 +16,8 @@ def login(request):
             if user.is_active:
                 auth.login(request, user)
                 return HttpResponseRedirect(reverse('index'))
-        else:
-            print(form.errors)
+        # else:
+        #     print(form.errors)
     else:
         form = UserLoginForms()
 
@@ -33,9 +33,10 @@ def register(request):
         form = UserRegisterForms(data=request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Вы успешно зарегистрировались')
             return HttpResponseRedirect(reverse('authapp:login'))
-        else:
-            print(form.errors)
+        # else:
+        #     print(form.errors)
     else:
         form = UserRegisterForms()
 
@@ -44,6 +45,20 @@ def register(request):
         'form': form
     }
     return render(request, 'authapp/register.html', context)
+
+
+def profile(request):
+    if request.method == 'POST':
+        form = UserProfileForms(instance=request.user, data=request.POST, files=request.FILES)
+        if form.is_valid():
+            form.save()
+        else:
+            print(form.errors)
+    context = {
+        'title': 'Geekshop | Профиль',
+        'form': UserProfileForms(instance=request.user)
+    }
+    return render(request, 'authapp/profile.html', context)
 
 
 def logout(request):
