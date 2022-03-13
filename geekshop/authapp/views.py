@@ -54,6 +54,7 @@ def profile(request):
         form = UserProfileForms(instance=request.user, data=request.POST, files=request.FILES)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Вы успешно сохранили профиль')
         else:
             print(form.errors)
     context = {
