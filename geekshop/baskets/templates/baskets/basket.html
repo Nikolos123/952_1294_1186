@@ -33,7 +33,17 @@
                 <h4 class="float-right">{{ baskets.0.total_sum }} руб.</h4>
             </div>
         </div>
-        <button type="button" class="btn btn-success btn-lg float-right">Оформить</button>
+        <form name="payment" method="post" action="https://sci.interkassa.com/" accept-charset="UTF-8">
+            <input type="hidden" name="ik_co_id" value="51237daa8f2a2d8413000000"/>
+            <input type="hidden" name="ik_pm_no" value="{{ baskets.0.id }}"/>
+            <input type="hidden" name="ik_am" value="{{ baskets.0.total_sum }}"/>
+            <input type="hidden" name="ik_cur" value="RUB"/>
+            <input type="hidden" name="ik_suc_u" value="http://127.0.0.1:8000/baskets/payment/result/"/>
+            <input type="hidden" name="ik_suc_m" value="get"/>
+            <input type="hidden" name="ik_desc" value="ОПЛАТА ЗА ТОВАР"/>
+            <input class="btn btn-success btn-lg float-right" type="submit" value="Оплатить">
+        </form>
+
     {% else %}
         <h4 class="mt-3 mb-3 text-center">Корзина пуста</h4>
     {% endif %}

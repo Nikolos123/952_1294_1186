@@ -7,3 +7,4 @@ from django.db import models
 class User(AbstractUser):
     image = models.ImageField(upload_to='users_image',blank=True)
     age = models.PositiveIntegerField(default=18)
+    coast = models.PositiveIntegerField(default=0)
